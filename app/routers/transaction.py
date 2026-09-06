@@ -1,7 +1,6 @@
 import httpx
 from fastapi import APIRouter, Depends, Request
 from fastapi.responses import JSONResponse
- 
 from app.dependencies.auth import verify_api_key
 from app.schemas.transaction import Transaction
 from app.services import transaction_client
