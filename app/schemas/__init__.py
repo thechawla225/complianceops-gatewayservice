@@ -1,3 +1,3 @@
 from app.schemas.transaction import *
 
-__all__ = ["Debtor", "Creditor", "InstructedAmount", "Transaction"]
+__all__ = ["Debtor", "Creditor", "InstructedAmount", "TransactionCreate"]

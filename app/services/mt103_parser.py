@@ -8,7 +8,7 @@ AMOUNT_TAG_PATTERN = re.compile(r"^\d{6}([A-Z]{3})([\d,]+)$")
 REQUIRED_TAGS = {"20", "32A", "50K", "59"}
  
  
-def parse_mt103(raw_text: str) -> Transaction:
+def parse_mt103(raw_text: str) -> TransactionCreate:
     tags: dict[str, str] = {}
  
     for line in raw_text.strip().splitlines():
@@ -28,7 +28,7 @@ def parse_mt103(raw_text: str) -> Transaction:
             detail=f"MT103 message missing required tag(s): {', '.join(sorted(missing))}",
         )
  
-    return Transaction(
+    return TransactionCreate(
         endToEndId=tags["20"],
         debtor=Debtor(name=tags["50K"], agentBic=tags.get("52A")),
         creditor=Creditor(name=tags["59"], agentBic=tags.get("57A")),

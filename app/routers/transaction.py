@@ -2,7 +2,7 @@ import httpx
 from fastapi import APIRouter, Depends, Request
 from fastapi.responses import JSONResponse
 from app.dependencies.auth import verify_api_key
-from app.schemas.transaction import Transaction
+from app.schemas.transaction import TransactionCreate
 from app.services import transaction_client
 from app.services.mt103_parser import parse_mt103
  
@@ -14,7 +14,7 @@ def _forward(response: httpx.Response) -> JSONResponse:
  
  
 @router.post("", dependencies=[Depends(verify_api_key)])
-async def create_transaction(payload: Transaction) -> JSONResponse:
+async def create_transaction(payload: TransactionCreate) -> JSONResponse:
     response = await transaction_client.create_transaction(payload.model_dump())
     return _forward(response)
  
