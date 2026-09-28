@@ -2,24 +2,19 @@
 FROM python:3.12-slim AS builder
 
 WORKDIR /app
-
-RUN python -m venv /opt/venv
-ENV PATH="/opt/venv/bin:$PATH"
-
 COPY requirements.txt .
-RUN pip install --no-cache-dir --upgrade pip && \
-    pip install --no-cache-dir -r requirements.txt
+RUN pip install --user --no-cache-dir -r requirements.txt
 
 # ---------- Stage 2: minimal runtime image ----------
 FROM python:3.12-slim
+
 RUN addgroup --system app && adduser --system --ingroup app appuser
 
 WORKDIR /app
-
-COPY --from=builder /opt/venv /opt/venv
+COPY --from=builder /root/.local /home/appuser/.local
 COPY --chown=appuser:app app/ ./app/
 
-ENV PATH="/opt/venv/bin:$PATH" \
+ENV PATH=/home/appuser/.local/bin:$PATH \
     PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1
 
