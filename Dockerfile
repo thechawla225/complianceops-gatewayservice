@@ -8,13 +8,14 @@ RUN pip install --user --no-cache-dir -r requirements.txt
 # ---------- Stage 2: minimal runtime image ----------
 FROM python:3.12-slim
 
-RUN addgroup --system app && adduser --system --ingroup app appuser
+RUN addgroup --system app && adduser --system --home /home/appuser --ingroup app appuser
 
 WORKDIR /app
 COPY --from=builder /root/.local /home/appuser/.local
 COPY --chown=appuser:app app/ ./app/
 
 ENV PATH=/home/appuser/.local/bin:$PATH \
+    HOME=/home/appuser \
     PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1
 
