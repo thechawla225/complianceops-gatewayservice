@@ -7,6 +7,7 @@ on:
   push:
     branches: [main]
   pull_request:
+  workflow_dispatch:   # manual run; a re-run reuses the old hub workflow, a new run fetches @main again
 
 permissions:
   contents: read
@@ -41,7 +42,7 @@ jobs:
 
   image:
     needs: test
-    if: github.event_name == 'push'
+    if: github.event_name != 'pull_request'
     permissions:
       id-token: write
       contents: read
