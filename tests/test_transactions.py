@@ -28,7 +28,7 @@ def test_create_transaction_rejects_bad_currency_length():
 
 def test_create_transaction_forwards_transaction_service_success(monkeypatch):
     async def fake_create_transaction(payload):
-        return httpx.responseonse(201, json={**payload, "id": "abc-123", "status": "clear"})
+        return httpx.Response(201, json={**payload, "id": "abc-123", "status": "clear"})
     monkeypatch.setattr(transaction_client, "create_transaction", fake_create_transaction)
     response = client.post("/transactions", json=VALID_PAYLOAD, headers={"x-api-key": "dev-secret-key"})
     assert response.status_code == 201
@@ -42,7 +42,7 @@ def test_get_transaction_rejects_missing_api_key():
 
 def test_get_transaction_forwards_not_found(monkeypatch):
     async def fake_get_transaction(transaction_id):
-        return httpx.responseonse(
+        return httpx.Response(
             404,
             json={"error": "not_found", "message": f"transaction {transaction_id} does not exist"},
         )
