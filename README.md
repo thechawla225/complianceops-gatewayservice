@@ -11,3 +11,4 @@ Transaction Schema: This schema defines what a transaction is, based on MT103 me
 Branching, commit messages, PR flow and the definition of done are shared across all ComplianceOps repos: see [CONTRIBUTING.md](https://github.com/thechawla225/complianceops/blob/main/CONTRIBUTING.md) in the hub repo.
 
 Deployed to EKS by Argo CD (GitOps): CI bumps the image tag in the hub repo and Argo CD syncs it.
+Last GitOps loop test: C6 session, 2 Nov 2026.
