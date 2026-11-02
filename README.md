@@ -6,4 +6,8 @@ This service accepets transactions in MT103 and Pacs.008 format, processes it in
 Schemas:
 Transaction Schema: This schema defines what a transaction is, based on MT103 message type
 
-This service id Deployed Via ArgoCD
+## Contributing
+
+Branching, commit messages, PR flow and the definition of done are shared across all ComplianceOps repos: see [CONTRIBUTING.md](https://github.com/thechawla225/complianceops/blob/main/CONTRIBUTING.md) in the hub repo.
+
+Deployed to EKS by Argo CD (GitOps): CI bumps the image tag in the hub repo and Argo CD syncs it.
